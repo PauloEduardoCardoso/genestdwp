@@ -1,0 +1,27 @@
+model{
+
+		# Priors
+    for(i in 1:ncovars){
+      a[i] ~ dnorm( coefMus[i], coefTaus[i] )
+    }
+
+    # functional relations
+    for(i in 1:nx){
+      for(j in 1:ncovars){
+        logl[i,j] <- a[j]*lambda.covars[i,j]
+      }
+      offlink[i] <- exp(offset[i])
+      lambda[i] <- exp(sum(logl[i,]))
+    }
+
+		# Likelihood
+		for( i in 1:nx ){
+			g[i] ~ dbeta(alpha[i], beta[i])
+			M[i] ~ dpois(offlink[i]*lambda[i])
+			Y[i] ~ dbin( g[i], M[i] )
+		}
+
+		Mtot <- sum(M[])
+
+		}
+	
