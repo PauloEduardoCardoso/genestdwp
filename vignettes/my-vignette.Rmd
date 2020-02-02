@@ -1,5 +1,9 @@
 ---
+<<<<<<< HEAD
 title: "Genestdwp - a tutorial to build the DWP file"
+=======
+title: "DWP"
+>>>>>>> 29750f552a95801ec266ba92e99989cd8726fe5f
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{my-vignette}
@@ -14,6 +18,7 @@ knitr::opts_chunk$set(
 )
 ```
 
+<<<<<<< HEAD
 The density-weighted proportion (DWP) is the expected fraction of carcasses that fell in the searched area. Carcass density is not the same at all distances from a turbine, but typically rises over a short distance then decreases eventually to zero ([GenEst](https://cran.r-project.org/web/packages/GenEst/vignettes/wind-examples.html)).
 
 
@@ -23,4 +28,8 @@ library(tidyverse)
 library(sf)
 
 
+=======
+```{r setup}
+library(genestdwp)
+>>>>>>> 29750f552a95801ec266ba92e99989cd8726fe5f
 ```
