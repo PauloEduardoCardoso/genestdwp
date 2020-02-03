@@ -1,16 +1,17 @@
-#' crossing  visibility with concentric rings.
-#' @description The \code{virings} function will create a new layer crossing the visibility
-#' mapped with concentric and non-overpaping rings for each turbine. Centroids are obtained from
-#' the mapped area that will be ideally be built using the \code{rings}
+#' cross  visibility map with concentric rings.
+#' @description The \code{virings} function will create a new layer resulting from crossing the
+#' mapped visibility with concentric-and-non-overpaping rings for each mapped area around
+#' turbines. Centroids are obtained from the visibility map.
+#' Visibility map can be built from buffer areas resulting from \code{sf::st_buffer} function.
 #'
-#' @param x a shapefile describing the visibility for each turbine.
+#' @param x a shapefile describing the visibility mapped for each turbine.
 #'
 #' @param d a vector of distances to build concentric rings aroung each mapped area.
 #'
 #' @return a sf object.
 #'
-#' @details ensure that d is a vector with distances, regular or not. Your visibility layer must
-#' have the columns ag and vis.
+#' @details ensure that d is a vector with distances, single, regularly spaced or not.
+#' Your visibility layer must have at least two columns: ag and vis.
 #'
 #' @author Paulo E. Cardoso
 #'
@@ -37,11 +38,11 @@ viring <- function(x, d){
 
   # check names
   if (any(c('ag', 'vis') %notin% names(x))){
-    stop("colunas devem ser [ag] e [vis]!")
+    stop("visibility layer must contain at least the columns [ag] and [vis]!")
   }
   xint <- x %>%
     group_by(ag) %>%
-    summarise(id = 1) %>% # unite to a geometry object
+    summarise(id = 1) %>%
     st_centroid()
 
   # Rings from visibility centroids

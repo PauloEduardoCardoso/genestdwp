@@ -1,16 +1,15 @@
 #' Concentric non-overpaping rings.
-#' @description The \code{virings} function will create a new layer crossing the visibility
-#' mapped with concentric and non-overpaping rings for each turbine. Centroids are obtained from
-#' the mapped area that will be ideally be built using the \code{rings}
+#' @description The \code{dwp} function will create the table with Density Weighted Probability
+#' required to run  \code{genest}.
 #'
-#' @param vr a shapefile describing the visibility for each turbine.
+#' @param vr a shapefile describing the visibility for each turbine at each ring. Ideally should
+#' be obtained with \code{virings}.
 #'
-#' @param pt a vector of distances to build concentric rings aroung each mapped area.
+#' @param pt a shapefile with carcass positions with an unique ID for each one.
 #'
-#' @return a sf object.
+#' @return a data.frame with dwp for each turbine at each ring distance.
 #'
-#' @details ensure that d is a vector with distances, regular or not. Your visibility layer must
-#' have the columns ag and vis.
+#' @details Ensure that pt is a vector with the group you are interested in.
 #'
 #' @author Paulo E. Cardoso
 #'
@@ -18,15 +17,30 @@
 #' @import tidyverse
 #' @examples
 #' # not run
-#' rings <- viring(x, d)
+#' ags <- st_sfc(st_point(c(1,2)), st_point(c(200,200)))
+#' ags <- st_sf(geometry = ags) %>%
+#' st_set_crs(3763) %>%
+#' mutate(ag = 1:2)
+#'
+#' # Distaces for concentric rings
+#' dist = units::set_units(c(10, 20, 30, 40, 50, 100), m)
+#'
+#' rings <- vrings(x = ags, d = dist)
+#'
+#' # Carcass distritubion
+#' logs <- st_sample(st_buffer(ags, 50), 10, type = "random", exact = TRUE) %>%
+#'   st_sf(.)
+#' logs$idu <- 1:5
 #'
 #' ggplot() +
-#'   geom_sf(aes(fill = as.numeric(area), colour = factor(ag)),
-#'          size = .5,
+#'   geom_sf(aes(fill = as.numeric(dist), colour = factor(ag)),
+#'           size = 1.1,
 #'           data = rings) +
 #'   geom_sf(data = logs)
 #'
+#' # obtain dwp data.frame
 #' dfdwp <- dwp(vr = rings, pt = logs)
+#'
 #' @export
 dwp <- function(vr, pt){
   # check names vring

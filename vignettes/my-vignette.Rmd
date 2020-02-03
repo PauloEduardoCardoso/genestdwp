@@ -28,8 +28,7 @@ library(tidyverse)
 library(sf)
 
 
-=======
 ```{r setup}
 library(genestdwp)
->>>>>>> 29750f552a95801ec266ba92e99989cd8726fe5f
+
 ```
