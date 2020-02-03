@@ -21,7 +21,19 @@ the mapped area that will be ideally be built using the \code{rings}
 }
 \details{
 ensure that d is a vector with distances, regular or not. Your visibility layer must
-have the columns [ag] and [vis].
+have the columns ag and vis.
+}
+\examples{
+# not run
+rings <- viring(x, d)
+
+ggplot() +
+  geom_sf(aes(fill = as.numeric(area), colour = factor(ag)),
+         size = .5,
+          data = rings) +
+  geom_sf(data = logs)
+
+dfdwp <- dwp(vr = rings, pt = logs)
 }
 \author{
 Paulo E. Cardoso

@@ -10,7 +10,7 @@
 #' @return a sf object.
 #'
 #' @details ensure that d is a vector with distances, regular or not. Your visibility layer must
-#' have the columns [ag] and [vis].
+#' have the columns ag and vis.
 #'
 #' @author Paulo E. Cardoso
 #'
@@ -26,7 +26,7 @@
 #'           data = rings) +
 #'   geom_sf(data = logs)
 #'
-#' dfdwp <- dwp(vr = rings, pt = logs)'
+#' dfdwp <- dwp(vr = rings, pt = logs)
 #' @export
 viring <- function(x, d){
   `%notin%` <- Negate(`%in%`)
@@ -62,4 +62,3 @@ viring <- function(x, d){
   return(bvisib)
 
 }
-

@@ -10,13 +10,12 @@
 #' @return a sf object.
 #'
 #' @details ensure that d is a vector with distances, regular or not. Your visibility layer must
-#' have the columns [ag] and [vis].
+#' have the columns ag and vis.
 #'
 #' @author Paulo E. Cardoso
 #'
 #' @import sf
 #' @import tidyverse
-#'
 #' @examples
 #' # not run
 #' rings <- viring(x, d)
@@ -27,7 +26,7 @@
 #'           data = rings) +
 #'   geom_sf(data = logs)
 #'
-#' dfdwp <- dwp(vr = rings, pt = logs)'
+#' dfdwp <- dwp(vr = rings, pt = logs)
 #' @export
 dwp <- function(vr, pt){
   # check names vring
