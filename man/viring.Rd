@@ -2,12 +2,12 @@
 % Please edit documentation in R/virings.R
 \name{viring}
 \alias{viring}
-\title{crossing  visibility with concentric rings.}
+\title{cross  visibility map with concentric rings.}
 \usage{
 viring(x, d)
 }
 \arguments{
-\item{x}{a shapefile describing the visibility for each turbine.}
+\item{x}{a shapefile describing the visibility mapped for each turbine.}
 
 \item{d}{a vector of distances to build concentric rings aroung each mapped area.}
 }
@@ -15,13 +15,14 @@ viring(x, d)
 a sf object.
 }
 \description{
-The \code{virings} function will create a new layer crossing the visibility
-mapped with concentric and non-overpaping rings for each turbine. Centroids are obtained from
-the mapped area that will be ideally be built using the \code{rings}
+The \code{virings} function will create a new layer resulting from crossing the
+mapped visibility with concentric-and-non-overpaping rings for each mapped area around
+turbines. Centroids are obtained from the visibility map.
+Visibility map can be built from buffer areas resulting from \code{sf::st_buffer} function.
 }
 \details{
-ensure that d is a vector with distances, regular or not. Your visibility layer must
-have the columns ag and vis.
+ensure that d is a vector with distances, single, regularly spaced or not.
+Your visibility layer must have at least two columns: ag and vis.
 }
 \examples{
 # not run
