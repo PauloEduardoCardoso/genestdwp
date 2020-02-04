@@ -19,13 +19,13 @@
 #' # not run
 #' ags <- st_sfc(st_point(c(1,2)), st_point(c(200,200)))
 #' ags <- st_sf(geometry = ags) %>%
-#' st_set_crs(3763) %>%
-#' mutate(ag = 1:2)
+#'  st_set_crs(3763) %>%
+#'  mutate(ag = 1:2)
 #'
 #' # Distaces for concentric rings
 #' dist = units::set_units(c(10, 20, 30, 40, 50, 100), m)
 #'
-#' rings <- vrings(x = ags, d = dist)
+#' rings <- vrings(x = visib, d = dist)
 #'
 #' # Carcass distritubion
 #' logs <- st_sample(st_buffer(ags, 50), 10, type = "random", exact = TRUE) %>%
@@ -43,6 +43,7 @@
 #'
 #' @export
 dwp <- function(vr, pt){
+  `%notin%` <- Negate(`%in%`)
   # check names vring
   if (any(c('ag', 'vis', 'dist') %notin% names(vr))){
     stop("colunas devem ser [ag] [dist] [vis]!")
