@@ -24,30 +24,32 @@ Ensure that pt is a vector with the group you are interested in.
 }
 \examples{
 # not run
-ags <- st_sfc(st_point(c(1,2)), st_point(c(200,200)))
-ags <- st_sf(geometry = ags) \%>\%
- st_set_crs(3763) \%>\%
- mutate(ag = 1:2)
+library(genestdwp)
+library(sf)
+library(ggplot2)
+library(sf)
+library(tidyverse)
 
-# Distaces for concentric rings
-dist = units::set_units(c(10, 20, 30, 40, 50, 100), m)
+# Vector of distances
+dist = units::set_units(c(10, 20, 30, 40, 50), m)
 
-rings <- vrings(x = visib, d = dist)
+# Spatial join among visibility map and rings
+rings <- genestdwp::viring(x=visib, d = dist)
 
-# Carcass distritubion
-logs <- st_sample(st_buffer(ags, 50), 10, type = "random", exact = TRUE) \%>\%
-  st_sf(.)
-logs$idu <- 1:5
+# Carcasses
+pto_carcass
+unique(pto_carcass$tamanho)
 
+# Get DWP
+dfdwp <- dwp(vr = rings, pt = pto_carcass)
+dfdwp
+
+# Plot some data together
 ggplot() +
-  geom_sf(aes(fill = as.numeric(dist), colour = factor(ag)),
-          size = 1.1,
-          data = rings) +
-  geom_sf(data = logs)
-
-# obtain dwp data.frame
-dfdwp <- dwp(vr = rings, pt = logs)
-
+  geom_sf(aes(fill = as.numeric(dist)), colour = 'black',
+          size = .8, data = filter(rings, ag == 1)) +
+  geom_sf(data = filter(pto_carcass, ag == 1)) +
+  theme_void()
 }
 \author{
 Paulo E. Cardoso

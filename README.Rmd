@@ -33,18 +33,27 @@ install_github("PauloEduardoCardoso/genestdwp")
 
 This is a basic example:
 
-```{r example}
+```{r example, warning=FALSE}
 library(genestdwp)
-## basic example code
-#' # not run
-#' rings <- viring(x, d)
-#'
-#' ggplot() +
-#'   geom_sf(aes(fill = as.numeric(area), colour = factor(ag)),
-#'          size = .5,
-#'           data = rings) +
-#'   geom_sf(data = logs)
-#'
-#' dfdwp <- dwp(vr = rings, pt = logs)'
-
+library(genestdwp)
+library(sf)
+library(ggplot2)
+library(sf)
+library(tidyverse)
+# Vector of distances
+dist = units::set_units(c(10, 20, 30, 40, 50), m)
+# Spatial join among visibility map and rings
+rings <- genestdwp::viring(x=visib, d = dist)
+# Carcasses
+pto_carcass
+unique(pto_carcass$tamanho)
+# Get DWP
+dfdwp <- dwp(vr = rings, pt = pto_carcass)
+dfdwp
+# Plot some data together
+ggplot() +
+  geom_sf(aes(fill = as.numeric(dist)), colour = 'black',
+          size = .8, data = filter(rings, ag == 1)) +
+  geom_sf(data = filter(pto_carcass, ag == 1)) +
+  theme_void()
 ```

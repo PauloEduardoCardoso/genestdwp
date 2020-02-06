@@ -3,21 +3,31 @@
 \docType{data}
 \name{visib}
 \alias{visib}
-\title{Shapefile with fake visibility map.}
-\format{}
+\title{layer with turbine visibility mapped}
+\format{A shapefile with 4 columns
+\describe{
+  \item{ag}{unique turbine id}
+  \item{visib}{visibility class (0 to 6)}
+}}
 \source{
-QGIS
+Candeeiros WF monitoring
 }
 \usage{
 visib
 }
 \description{
-Shapefile with fake visibility map.
+layer with turbine visibility mapped
 }
 \examples{
 \dontrun{
-data(visib)
+library(genestdwp)
+library(sf)
+library(ggplot2)
 summary(visib)
+ggplot() +
+geom_sf(aes(fill = as.numeric(area)),
+       size = .5, data = visib) +
+theme_void()
 }
 }
 \author{
