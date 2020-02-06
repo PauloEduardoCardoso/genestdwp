@@ -17,45 +17,60 @@
 #' @import tidyverse
 #' @examples
 #' # not run
-#' ags <- st_sfc(st_point(c(1,2)), st_point(c(200,200)))
-#' ags <- st_sf(geometry = ags) %>%
-#'  st_set_crs(3763) %>%
-#'  mutate(ag = 1:2)
+#' library(genestdwp)
+#' library(sf)
+#' library(ggplot2)
+#' library(sf)
+#' library(tidyverse)
 #'
-#' # Distaces for concentric rings
-#' dist = units::set_units(c(10, 20, 30, 40, 50, 100), m)
+#' # Vector of distances
+#' dist = units::set_units(c(10, 20, 30, 40, 50), m)
 #'
-#' rings <- vrings(x = visib, d = dist)
+#' # Spatial join among visibility map and rings
+#' rings <- genestdwp::viring(x=visib, d = dist)
 #'
-#' # Carcass distritubion
-#' logs <- st_sample(st_buffer(ags, 50), 10, type = "random", exact = TRUE) %>%
-#'   st_sf(.)
-#' logs$idu <- 1:5
+#' # Carcasses
+#' pto_carcass
+#' unique(pto_carcass$tamanho)
 #'
+#' # Get DWP
+#' dfdwp <- dwp(vr = rings, pt = pto_carcass)
+#' dfdwp
+#'
+#' # Plot some data together
 #' ggplot() +
-#'   geom_sf(aes(fill = as.numeric(dist), colour = factor(ag)),
-#'           size = 1.1,
-#'           data = rings) +
-#'   geom_sf(data = logs)
-#'
-#' # obtain dwp data.frame
-#' dfdwp <- dwp(vr = rings, pt = logs)
-#'
+#'   geom_sf(aes(fill = as.numeric(dist)), colour = 'black',
+#'           size = .8, data = filter(rings, ag == 1)) +
+#'   geom_sf(data = filter(pto_carcass, ag == 1)) +
+#'   theme_void()
 #' @export
 dwp <- function(vr, pt){
   `%notin%` <- Negate(`%in%`)
   # check names vring
-  if (any(c('ag', 'vis', 'dist') %notin% names(vr))){
-    stop("colunas devem ser [ag] [dist] [vis]!")
+  if (any(c('ag', 'visib', 'dist') %notin% names(vr))){
+    stop("Visibility layer must contain the following columns: [ag] [dist] [visib]!")
   }
   # check names pt
-  if (any(c('idu') %notin% names(pt))){
-    stop("colunas devem ser [ag] e [vis]!")
+  if (any(c('tamanho') %notin% names(pt))){
+    stop("layer with carcasses must contain column: [tamanho] !")
   }
 
   # Step 1.1 Carcass at each ring dist ####
-  cr <- logs %>% st_intersection(vr) %>%
-    st_drop_geometry() %>%
+  cr <- pt[ ,-1] %>%
+    st_join(select(vr, ag, dist, visib), join = st_intersects) %>%
+    filter(!is.na(visib))
+
+  if(nrow(filter(cr, visib == 0)) != 0){
+    print('Attention!')
+    print(st_drop_geometry(filter(select(cr, ag, visib), visib == 0)))
+    print(paste('Found n =',
+                  nrow(filter(cr, visib == 0)),
+                  'carcasses on visibility = 0! Assuming value of nearest visible area'))
+    cr <- cr %>%
+      st_join(filter(rings, visib != 0), join = st_nearest_feature)
+    cr <- select(cr, tamanho, ag = ag.x, dist = dist.y, visib = visib.y)
+  }
+  cr <- cr %>% st_drop_geometry() %>%
     group_by(dist) %>%
     tally(n())
   # Obtaining pmi
@@ -68,7 +83,7 @@ dwp <- function(vr, pt){
     # Relative mortality per ring dist (Mi)
     left_join(vr %>%
                 st_drop_geometry() %>%
-                filter(vis > 0) %>%
+                filter(visib > 0) %>%
                 group_by(dist) %>%
                 summarise(varea = sum(area)),
               by = c('dist' = 'dist')) %>%
@@ -83,24 +98,22 @@ dwp <- function(vr, pt){
   pmi <- select(int, c('dist', 'pmi'))
 
   # dwp
-  dwp <- rings %>%
+  dwp <- vr %>%
     st_drop_geometry() %>%
     group_by(ag, dist) %>%
     summarise(area = sum(area)) %>%
     left_join(
       rings %>%
         st_drop_geometry() %>%
-        filter(vis > 0)  %>%
+        filter(visib > 0)  %>%
         group_by(ag, dist) %>%
         summarise(area = sum(area)),
       by = c('ag' = 'ag', 'dist' = 'dist')
     ) %>%
     left_join(pmi, by = c('dist' = 'dist')) %>%
-    mutate(dwp =  (area.y/area.x) * pmi) %>%
-    ungroup()
-  dwp <- dwp %>%
-    select(ag, dist, dwp) %>%
-    pivot_wider(names_from = dist, values_from = dwp)
+    mutate(agdwp =  (area.y/area.x) * pmi) %>%
+    ungroup() %>% group_by(ag) %>%
+    summarise(dwp = sum(agdwp))
 
   return(dwp)
 

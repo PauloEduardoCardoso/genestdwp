@@ -10,15 +10,16 @@
 #'
 #' @return a sf object.
 #'
-#' @details ensure that d is a vector with distances, single, regularly spaced or not.
-#' Your visibility layer must have at least two columns: ag and vis.
+#' @details Try to ensure that d is a vector with distances, single, regularly spaced or not.
+#'  Your visibility layer must have at least two columns: ag and visi.
+#'  Check and remember to use a single projection for all layers.
 #'
 #' @author Paulo E. Cardoso
 #'
 #' @import sf
 #' @import tidyverse
 #' @examples
-#' # not run
+#' ## not run
 #' # Distaces for rings #
 #' dist = units::set_units(c(10, 20, 30, 40, 50, 100), m)
 #'  # crossing visibility map with rings
@@ -38,14 +39,17 @@
 #' @export
 viring <- function(x, d){
   `%notin%` <- Negate(`%in%`)
+  if(is.na(st_crs(x))){
+    stop('No projection detected. You possibly fail to associate a .prj file')
+  }
   # check dist
   if (is.null(d)){
-    stop("d deve ser um vetor com distancias")
+    stop("d must be a numeric vector with distances (m)")
   }
 
   # check names
-  if (any(c('ag', 'vis') %notin% names(x))){
-    stop("visibility layer must contain at least the columns [ag] and [vis]!")
+  if (any(c('ag', 'visib') %notin% names(x))){
+    stop("visibility layer must contain at least the columns [ag] and [visib]!")
   }
   xint <- x %>%
     group_by(ag) %>%
