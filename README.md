@@ -1,11 +1,10 @@
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
 GenestDwp
 =========
 
-<!-- badges: start -->
-<!-- badges: end -->
-The goal of genestdwp is to obtain the dwp (density weighted proportion) file required to run GenEst. It will require shapefiles for visibility map around each turbine and the carcass locations. Both layers will tipically be obtained from GIS. [![DOI](https://zenodo.org/badge/237538088.svg)](https://zenodo.org/badge/latestdoi/237538088)
+The goal of genestdwp is to obtain the dwp (density weighted proportion) file required to run GenEst. It will require shapefiles for visibility map around each turbine and the carcass locations. Both layers will tipically be obtained from GIS.
+
+[![DOI](https://zenodo.org/badge/237538088.svg)](https://zenodo.org/badge/latestdoi/237538088)
 
 Disclaimer
 ----------
@@ -15,7 +14,7 @@ This software is preliminary or provisional. No warranty, expressed or implied, 
 What is GenEst?
 ---------------
 
-GenEst is a generalized, unbiased, fatality estimator developed by [USGS](https://www.usgs.gov/software/genest-a-generalized-estimator-mortality). Additional information and details available from the [software User Guide](https://doi.org/10.3133/tm7C19), the [package repository](https://doi.org/10.5066/P9O9BATL), and the [technical report](https://doi.org/10.3133/tm7A2). The material from a USGS "Into to GenEst" workshop is also available from [here](https://www.usgs.gov/media/files/intro-genest-workshop-nwcc-26nov2018).
+GenEst is a generalized, unbiased, fatality estimator developed by [USGS](https://www.usgs.gov/software/genest-a-generalized-estimator-mortality). Additional information and details available from the [software User Guide](https://doi.org/10.3133/tm7C19), the [package repository](https://doi.org/10.5066/P9O9BATL), and the [technical report](https://doi.org/10.3133/tm7A2). The material from a USGS "Into to GenEst" workshop is also available [here](https://www.usgs.gov/media/files/intro-genest-workshop-nwcc-26nov2018).
 
 Installation
 ------------
@@ -99,10 +98,10 @@ dfdwp
 #> # ... with 27 more rows
 # Plot some data together
 ggplot() +
-  geom_sf(aes(fill = as.numeric(dist)), colour = 'grey80',
+  geom_sf(aes(fill = factor(dist)), colour = 'grey80',
           size = .1, data = filter(rings, ag == 1)) +
   geom_sf(data = filter(pto_carcass, ag == 1), size = 4) +
-  scale_fill_continuous('Dist (m)')+
+  scale_fill_brewer('Dist (m)') +
   theme_void()
 ```
 
