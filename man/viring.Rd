@@ -21,9 +21,10 @@ turbines. Centroids are obtained from the visibility map.
 Visibility map can be built from buffer areas resulting from \code{sf::st_buffer} function.
 }
 \details{
-Try to ensure that d is a vector with distances, single, regularly spaced or not.
- Your visibility layer must have at least two columns: ag and visi.
- Check and remember to use a single projection for all layers.
+Ensure that d is a vector with distances, single, regularly spaced or not.
+ Your visibility layer must have at least two columns: ag and visib.
+ Check and remember to use a single projection for all layers in your project.
+ Do not use geographic coordinate system.
 }
 \examples{
 ## not run

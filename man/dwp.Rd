@@ -17,17 +17,16 @@ a data.frame with dwp for each turbine at each ring distance.
 }
 \description{
 The \code{dwp} function will create the table with Density Weighted Probability
-required to run  \code{genest}.
+required to run \code{genest}.
 }
 \details{
-Ensure that pt is a vector with the group you are interested in.
+DWP will be obtained for a single group. Ensure that pt is a vector with the group size you are interested in.
 }
 \examples{
 # not run
 library(genestdwp)
 library(sf)
 library(ggplot2)
-library(sf)
 library(tidyverse)
 
 # Vector of distances

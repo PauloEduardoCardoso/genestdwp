@@ -9,35 +9,41 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   fig.path = "man/figures/README-",
-  out.width = "100%"
+  out.width = "75%"
 )
 ```
 
-# genestdwp
+# GenestDwp
 
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of genestdwp is to ...
+The goal of genestdwp is to obtain the dwp (density weighted proportion) file required to run GenEst. It will require shapefiles for visibility map around each turbine and the carcass locations. Both layers will tipically be obtained from  GIS.
+[![DOI](https://zenodo.org/badge/237538088.svg)](https://zenodo.org/badge/latestdoi/237538088)
+
+## Disclaimer
+This software is preliminary or provisional. No warranty, expressed or implied, is made by the mantainer. Software releases constitute no warranty. The software is provided as is on the condition that the mantainer shall not be held liable or responsible for any damages resulting from the authorized or unauthorized use of the software.
+
+## What is GenEst?
+
+GenEst is a generalized, unbiased, fatality estimator developed by [USGS](https://www.usgs.gov/software/genest-a-generalized-estimator-mortality). Additional information and details available from the [software User Guide](https://doi.org/10.3133/tm7C19), the [package repository ](https://doi.org/10.5066/P9O9BATL), and the [technical report](https://doi.org/10.3133/tm7A2). The material from a USGS "Into to GenEst" workshop is also available from [here](https://www.usgs.gov/media/files/intro-genest-workshop-nwcc-26nov2018).
 
 ## Installation
-
-You can install the released version of genestdwp from [Github](https://https://github.com/) with:
+You can install the released version of genestdwp from [Github](https:://github.com/PauloEduardoCardoso/genestdwp) with:
 
 ``` r
 library(devtools)
 install_github("PauloEduardoCardoso/genestdwp")
 ```
+## Contribute
+You are welcome to contribute to the package development and improvment by [filling an issue](https://github.com/PauloEduardoCardoso/genestdwp/issues) at the software webpage.
 
 ## Example
 
-This is a basic example:
+Run a basic example with the provided data:
 
-```{r example, warning=FALSE}
+```{r example, message=FALSE, warning=FALSE}
 library(genestdwp)
-library(genestdwp)
-library(sf)
-library(ggplot2)
 library(sf)
 library(tidyverse)
 # Vector of distances
@@ -46,14 +52,14 @@ dist = units::set_units(c(10, 20, 30, 40, 50), m)
 rings <- genestdwp::viring(x=visib, d = dist)
 # Carcasses
 pto_carcass
-unique(pto_carcass$tamanho)
 # Get DWP
 dfdwp <- dwp(vr = rings, pt = pto_carcass)
 dfdwp
 # Plot some data together
 ggplot() +
-  geom_sf(aes(fill = as.numeric(dist)), colour = 'black',
-          size = .8, data = filter(rings, ag == 1)) +
-  geom_sf(data = filter(pto_carcass, ag == 1)) +
+  geom_sf(aes(fill = as.numeric(dist)), colour = 'grey80',
+          size = .1, data = filter(rings, ag == 1)) +
+  geom_sf(data = filter(pto_carcass, ag == 1), size = 4) +
+  scale_fill_continuous('Dist (m)')+
   theme_void()
 ```

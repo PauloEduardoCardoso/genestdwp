@@ -10,9 +10,10 @@
 #'
 #' @return a sf object.
 #'
-#' @details Try to ensure that d is a vector with distances, single, regularly spaced or not.
-#'  Your visibility layer must have at least two columns: ag and visi.
-#'  Check and remember to use a single projection for all layers.
+#' @details Ensure that d is a vector with distances, single, regularly spaced or not.
+#'  Your visibility layer must have at least two columns: ag and visib.
+#'  Check and remember to use a single projection for all layers in your project.
+#'  Do not use geographic coordinate system.
 #'
 #' @author Paulo E. Cardoso
 #'
@@ -38,7 +39,12 @@
 #' dfdwp <- dwp(vr = rings, pt = logs)
 #' @export
 viring <- function(x, d){
-  `%notin%` <- Negate(`%in%`)
+  #Check projections
+  if(is.na(st_crs(x))){
+    stop('No crs found for visibility layer')
+  }
+
+  `%notin%` <- Negate(`%in%`) # negate helper function
   if(is.na(st_crs(x))){
     stop('No projection detected. You possibly fail to associate a .prj file')
   }

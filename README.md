@@ -1,43 +1,46 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-genestdwp
+GenestDwp
 =========
 
 <!-- badges: start -->
 <!-- badges: end -->
-The goal of genestdwp is to ...
+The goal of genestdwp is to obtain the dwp (density weighted proportion) file required to run GenEst. It will require shapefiles for visibility map around each turbine and the carcass locations. Both layers will tipically be obtained from GIS. [![DOI](https://zenodo.org/badge/237538088.svg)](https://zenodo.org/badge/latestdoi/237538088)
+
+Disclaimer
+----------
+
+This software is preliminary or provisional. No warranty, expressed or implied, is made by the mantainer. Software releases constitute no warranty. The software is provided as is on the condition that the mantainer shall not be held liable or responsible for any damages resulting from the authorized or unauthorized use of the software.
+
+What is GenEst?
+---------------
+
+GenEst is a generalized, unbiased, fatality estimator developed by [USGS](https://www.usgs.gov/software/genest-a-generalized-estimator-mortality). Additional information and details available from the [software User Guide](https://doi.org/10.3133/tm7C19), the [package repository](https://doi.org/10.5066/P9O9BATL), and the [technical report](https://doi.org/10.3133/tm7A2). The material from a USGS "Into to GenEst" workshop is also available from [here](https://www.usgs.gov/media/files/intro-genest-workshop-nwcc-26nov2018).
 
 Installation
 ------------
 
-You can install the released version of genestdwp from [Github](https://https://github.com/) with:
+You can install the released version of genestdwp from [Github](https:://github.com/PauloEduardoCardoso/genestdwp) with:
 
 ``` r
 library(devtools)
 install_github("PauloEduardoCardoso/genestdwp")
 ```
 
+Contribute
+----------
+
+You are welcome to contribute to the package development and improvment by [filling an issue](https://github.com/PauloEduardoCardoso/genestdwp/issues) at the software webpage.
+
 Example
 -------
 
-This is a basic example:
+Run a basic example with the provided data:
 
 ``` r
 library(genestdwp)
-library(genestdwp)
-library(sf)
-#> Linking to GEOS 3.6.1, GDAL 2.2.3, PROJ 4.9.3
-library(ggplot2)
 library(sf)
 library(tidyverse)
-#> -- Attaching packages ------------------------------------------------------------------------------------------------------ tidyverse 1.3.0.9000 --
-#> v tibble  2.1.3     v dplyr   0.8.3
-#> v tidyr   1.0.0     v stringr 1.4.0
-#> v readr   1.3.1     v forcats 0.4.0
-#> v purrr   0.3.3
-#> -- Conflicts -------------------------------------------------------------------------------------------------------------- tidyverse_conflicts() --
-#> x dplyr::filter() masks stats::filter()
-#> x dplyr::lag()    masks stats::lag()
 # Vector of distances
 dist = units::set_units(c(10, 20, 30, 40, 50), m)
 # Spatial join among visibility map and rings
@@ -64,8 +67,6 @@ pto_carcass
 #>  9     1 Falco tinnunculus Ave   grande      (129281 268825)
 #> 10    11 NI Corvideo       Ave   grande  (129573.4 269429.5)
 #> # ... with 44 more rows
-unique(pto_carcass$tamanho)
-#> [1] "grande"
 # Get DWP
 dfdwp <- dwp(vr = rings, pt = pto_carcass)
 #> [1] "Attention!"
@@ -98,10 +99,11 @@ dfdwp
 #> # ... with 27 more rows
 # Plot some data together
 ggplot() +
-  geom_sf(aes(fill = as.numeric(dist)), colour = 'black',
-          size = .8, data = filter(rings, ag == 1)) +
-  geom_sf(data = filter(pto_carcass, ag == 1)) +
+  geom_sf(aes(fill = as.numeric(dist)), colour = 'grey80',
+          size = .1, data = filter(rings, ag == 1)) +
+  geom_sf(data = filter(pto_carcass, ag == 1), size = 4) +
+  scale_fill_continuous('Dist (m)')+
   theme_void()
 ```
 
-<img src="man/figures/README-example-1.png" width="100%" />
+<img src="man/figures/README-example-1.png" width="75%" />

@@ -1,6 +1,6 @@
 #' Concentric non-overpaping rings.
 #' @description The \code{dwp} function will create the table with Density Weighted Probability
-#' required to run  \code{genest}.
+#' required to run \code{genest}.
 #'
 #' @param vr a shapefile describing the visibility for each turbine at each ring. Ideally should
 #' be obtained with \code{virings}.
@@ -9,7 +9,7 @@
 #'
 #' @return a data.frame with dwp for each turbine at each ring distance.
 #'
-#' @details Ensure that pt is a vector with the group you are interested in.
+#' @details DWP will be obtained for a single group. Ensure that pt is a vector with the group size you are interested in.
 #'
 #' @author Paulo E. Cardoso
 #'
@@ -20,7 +20,6 @@
 #' library(genestdwp)
 #' library(sf)
 #' library(ggplot2)
-#' library(sf)
 #' library(tidyverse)
 #'
 #' # Vector of distances
@@ -45,7 +44,18 @@
 #'   theme_void()
 #' @export
 dwp <- function(vr, pt){
-  `%notin%` <- Negate(`%in%`)
+
+  #Check projections
+  if(any(is.na(st_crs(vr)),is.na(st_crs(pt)))){
+    stop('No crs found for one or both layers')
+  }
+
+  if(st_crs(vr) != st_crs(pt)){
+    stop('Projections differ. Please re-check original GIS layers')
+  }
+
+  `%notin%` <- Negate(`%in%`) # negate helper function
+
   # check names vring
   if (any(c('ag', 'visib', 'dist') %notin% names(vr))){
     stop("Visibility layer must contain the following columns: [ag] [dist] [visib]!")
@@ -70,7 +80,8 @@ dwp <- function(vr, pt){
       st_join(filter(rings, visib != 0), join = st_nearest_feature)
     cr <- select(cr, tamanho, ag = ag.x, dist = dist.y, visib = visib.y)
   }
-  cr <- cr %>% st_drop_geometry() %>%
+  cr <- cr %>%
+    st_drop_geometry() %>%
     group_by(dist) %>%
     tally(n())
   # Obtaining pmi
@@ -92,7 +103,7 @@ dwp <- function(vr, pt){
     mutate(n = ifelse(is.na(n),0,n),
            pr = varea / tarea,
            mi = n/pr,
-           s=sum(mi, na.rm = T),
+           s = sum(mi, na.rm = T),
            pmi = mi/s)
   # pmi df
   pmi <- select(int, c('dist', 'pmi'))
