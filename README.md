@@ -1,10 +1,7 @@
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
 GenestDwp
 =========
 
-<!-- badges: start -->
-<!-- badges: end -->
 The goal of genestdwp is to obtain the dwp (density weighted proportion) file required to run GenEst. It will require shapefiles for visibility map around each turbine and the carcass locations. Both layers will tipically be obtained from GIS. [![DOI](https://zenodo.org/badge/237538088.svg)](https://zenodo.org/badge/latestdoi/237538088)
 
 Disclaimer
