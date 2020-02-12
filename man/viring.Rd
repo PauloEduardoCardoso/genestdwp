@@ -28,9 +28,9 @@ Ensure that d is a vector with distances, single, regularly spaced or not.
 }
 \examples{
 ## not run
-# Distaces for rings #
+# Distaces for rings
 dist = units::set_units(c(10, 20, 30, 40, 50, 100), m)
- # crossing visibility map with rings
+# crossing visibility map with rings
 rings <- viring(x = visib, d = dist)
 # Add some randomly displaced carcasses
 logs <- st_sample(st_buffer(ags, 50), 10, type = "random", exact = TRUE) \%>\%
@@ -39,7 +39,7 @@ logs$idu <- 1:5
 # Plot it
 ggplot() +
   geom_sf(aes(fill = as.numeric(area), colour = factor(ag)),
-         size = .5,
+          size = .5,
           data = rings) +
   geom_sf(data = logs)
 

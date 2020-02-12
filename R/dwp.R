@@ -13,14 +13,27 @@
 #'
 #' @author Paulo E. Cardoso
 #'
-#' @import sf
-#' @import tidyverse
+#' @importFrom sf st_join
+#' @importFrom sf st_crs
+#' @importFrom sf st_buffer
+#' @importFrom sf st_cast
+#' @importFrom sf st_difference
+#' @importFrom sf st_intersection
+#' @importFrom sf st_intersects
+#' @importFrom sf st_drop_geometry
+#' @importFrom sf st_nearest_feature
+#' @importFrom dplyr group_by
+#' @importFrom dplyr left_join
+#' @importFrom dplyr mutate
+#' @importFrom dplyr summarise
+#' @importFrom dplyr filter
+#' @importFrom dplyr select
+#' @importFrom dplyr tally
+#' @importFrom dplyr ungroup
+#' @importFrom purrr map
 #' @examples
-#' # not run
+#' ## not run
 #' library(genestdwp)
-#' library(sf)
-#' library(ggplot2)
-#' library(tidyverse)
 #'
 #' # Vector of distances
 #' dist = units::set_units(c(10, 20, 30, 40, 50), m)
@@ -42,6 +55,7 @@
 #'           size = .8, data = filter(rings, ag == 1)) +
 #'   geom_sf(data = filter(pto_carcass, ag == 1)) +
 #'   theme_void()
+#'
 #' @export
 dwp <- function(vr, pt){
 

@@ -17,13 +17,28 @@
 #'
 #' @author Paulo E. Cardoso
 #'
-#' @import sf
-#' @import tidyverse
+#' @importFrom sf st_centroid
+#' @importFrom sf st_crs
+#' @importFrom sf st_buffer
+#' @importFrom sf st_cast
+#' @importFrom sf st_difference
+#' @importFrom sf st_intersection
+#' @importFrom sf st_intersects
+#' @importFrom sf st_area
+#' @importFrom dplyr group_by
+#' @importFrom dplyr left_join
+#' @importFrom dplyr mutate
+#' @importFrom dplyr summarise
+#' @importFrom dplyr filter
+#' @importFrom dplyr select
+#' @importFrom dplyr tally
+#' @importFrom dplyr ungroup
+#' @importFrom purrr map
 #' @examples
 #' ## not run
-#' # Distaces for rings #
+#' # Distaces for rings
 #' dist = units::set_units(c(10, 20, 30, 40, 50, 100), m)
-#'  # crossing visibility map with rings
+#' # crossing visibility map with rings
 #' rings <- viring(x = visib, d = dist)
 #' # Add some randomly displaced carcasses
 #' logs <- st_sample(st_buffer(ags, 50), 10, type = "random", exact = TRUE) %>%
@@ -32,7 +47,7 @@
 #' # Plot it
 #' ggplot() +
 #'   geom_sf(aes(fill = as.numeric(area), colour = factor(ag)),
-#'          size = .5,
+#'           size = .5,
 #'           data = rings) +
 #'   geom_sf(data = logs)
 #'
@@ -63,10 +78,10 @@ viring <- function(x, d){
     st_centroid()
 
   # Rings from visibility centroids
-  bint <- purrr::map(d,
-                     ~st_buffer(xint, .x) %>%
-                       mutate(dist = .x,
-                              ag = xint$ag)
+  bint <- map(d,
+              ~st_buffer(xint, .x) %>%
+                mutate(dist = .x,
+                       ag = xint$ag)
   ) %>%
     do.call("rbind", .) %>%
     st_cast() %>%

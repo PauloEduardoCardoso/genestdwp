@@ -1,7 +1,5 @@
 ---
 title: "Genestdwp - a tutorial to build the DWP file"
-=======
-title: "DWP"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{my-vignette}

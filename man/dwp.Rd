@@ -23,11 +23,8 @@ required to run \code{genest}.
 DWP will be obtained for a single group. Ensure that pt is a vector with the group size you are interested in.
 }
 \examples{
-# not run
+## not run
 library(genestdwp)
-library(sf)
-library(ggplot2)
-library(tidyverse)
 
 # Vector of distances
 dist = units::set_units(c(10, 20, 30, 40, 50), m)
@@ -49,6 +46,7 @@ ggplot() +
           size = .8, data = filter(rings, ag == 1)) +
   geom_sf(data = filter(pto_carcass, ag == 1)) +
   theme_void()
+
 }
 \author{
 Paulo E. Cardoso

@@ -7,8 +7,8 @@
 #' @return a sf object.
 #' @details ensure that ring is a vector with the columns ag, dist and vis.
 #' @author Paulo E. Cardoso
-#' @import sf
-#' @import tidyverse
+#' @importFrom sf st_join
+#' @importFrom sf st_nearest_feature
 #' @examples
 #' # not run
 #' ring <- viring(x, d)
