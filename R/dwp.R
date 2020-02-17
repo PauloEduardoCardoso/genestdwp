@@ -38,7 +38,7 @@
 #' require(genestdwp)
 #' require(units)
 #' # Vector of distances
-#' dist = set_units(c(10, 20, 30, 40, 50), m)
+#' dist = c(10, 20, 30, 40, 50)
 #'
 #' # Spatial join among visibility map and rings
 #' rings <- viring(x = visib, d = dist)

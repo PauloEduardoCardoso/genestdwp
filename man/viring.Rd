@@ -29,11 +29,12 @@ Ensure that d is a vector with distances, single, regularly spaced or not.
 \examples{
 \dontrun{
 # Distaces for rings
-dist = units::set_units(c(10, 20, 30, 40, 50, 100), m)
+dist = c(10, 20, 30, 40, 50, 100)
 # crossing visibility map with rings
 rings <- viring(x = visib, d = dist)
 # Add some randomly displaced carcasses
-logs <- st_sample(st_buffer(ags, 50), 10, type = "random", exact = TRUE) \%>\%
+logs <- st_sample(st_buffer(ags, 50), 10, type = "random",
+                  exact = TRUE) \%>\%
  st_sf(.)
 logs$idu <- 1:5
 # Plot it
