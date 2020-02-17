@@ -17,8 +17,6 @@ knitr::opts_chunk$set(
 
 The goal of genestdwp is to obtain the dwp (density weighted proportion) file required to run GenEst. It will require shapefiles for visibility map around each turbine and the carcass locations. Both layers will tipically be obtained from  GIS.
 
-[![DOI](https://zenodo.org/badge/237538088.svg)](https://zenodo.org/badge/latestdoi/237538088)
-
 ## Disclaimer
 This software is preliminary or provisional. No warranty, expressed or implied, is made by the mantainer. Software releases constitute no warranty. The software is provided as is on the condition that the mantainer shall not be held liable or responsible for any damages resulting from the authorized or unauthorized use of the software.
 
