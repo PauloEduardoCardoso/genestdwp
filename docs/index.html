@@ -75,6 +75,8 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
+
+
 <div id="genestdwp" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#genestdwp" class="anchor"></a>GenestDwp</h1></div>
@@ -110,9 +112,9 @@
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(sf)
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(tidyverse)
 <span class="co"># Vector of distances</span>
-dist =<span class="st"> </span>units<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/units/man/set_units.html">set_units</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">40</span>, <span class="dv">50</span>), m)
+dist =<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">40</span>, <span class="dv">50</span>) <span class="co"># assumming meters</span>
 <span class="co"># Spatial join among visibility map and rings</span>
-rings &lt;-<span class="st"> </span>genestdwp<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/genestdwp/man/viring.html">viring</a></span>(<span class="dt">x=</span>visib, <span class="dt">d =</span> dist)
+rings &lt;-<span class="st"> </span><span class="kw"><a href="reference/viring.html">viring</a></span>(<span class="dt">x=</span>visib, <span class="dt">d =</span> dist)
 <span class="co"># Carcasses</span>
 pto_carcass
 <span class="co">#&gt; Simple feature collection with 54 features and 4 fields</span>
@@ -175,6 +177,7 @@ dfdwp
 <p><img src="reference/figures/README-example-1.png" width="75%"></p>
 </div>
 </div>
+
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -199,7 +202,14 @@ dfdwp
 </ul>
 </div>
 
-  </div>
+  <div class="dev-status">
+<h2>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://codecov.io/gh/PauloEduardoCardoso/genestdwp?branch=master"><img src="https://codecov.io/gh/PauloEduardoCardoso/genestdwp/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
+<li><a href="https://zenodo.org/badge/latestdoi/237538088"><img src="https://zenodo.org/badge/237538088.svg" alt="DOI"></a></li>
+</ul>
+</div>
+</div>
 </div>
 
 
