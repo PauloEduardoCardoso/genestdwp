@@ -1,15 +1,16 @@
-#' Concentric non-overpaping rings.
-#' @description The \code{dwp} function will create the table with Density Weighted Probability
-#' required to run \code{genest}.
+#' DWP
+#' @description The \code{dwp} function will create the table with Density Weighted
+#' Probability required to run \code{genest}.
 #'
-#' @param vr a shapefile describing the visibility for each turbine at each ring. Ideally should
-#' be obtained with \code{virings}.
+#' @param vr a shapefile describing the visibility for each turbine at each ring.
+#' Ideally should be obtained with \code{virings}.
 #'
 #' @param pt a shapefile with carcass positions with an unique ID for each one.
 #'
 #' @return a data.frame with dwp for each turbine at each ring distance.
 #'
-#' @details DWP will be obtained for a single group. Ensure that pt is a vector with the group size you are interested in.
+#' @details DWP will be obtained for a single group. Ensure that pt is a vector with
+#' the group size you are interested in.
 #'
 #' @author Paulo E. Cardoso
 #'
@@ -31,15 +32,16 @@
 #' @importFrom dplyr tally
 #' @importFrom dplyr ungroup
 #' @importFrom purrr map
+#' @export
 #' @examples
-#' ## not run
-#' library(genestdwp)
-#'
+#' \dontrun{
+#' require(genestdwp)
+#' require(units)
 #' # Vector of distances
-#' dist = units::set_units(c(10, 20, 30, 40, 50), m)
+#' dist = set_units(c(10, 20, 30, 40, 50), m)
 #'
 #' # Spatial join among visibility map and rings
-#' rings <- genestdwp::viring(x=visib, d = dist)
+#' rings <- viring(x = visib, d = dist)
 #'
 #' # Carcasses
 #' pto_carcass
@@ -55,8 +57,7 @@
 #'           size = .8, data = filter(rings, ag == 1)) +
 #'   geom_sf(data = filter(pto_carcass, ag == 1)) +
 #'   theme_void()
-#'
-#' @export
+#' }
 dwp <- function(vr, pt){
 
   #Check projections

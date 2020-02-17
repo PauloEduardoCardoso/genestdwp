@@ -34,8 +34,9 @@
 #' @importFrom dplyr tally
 #' @importFrom dplyr ungroup
 #' @importFrom purrr map
+#' @export
 #' @examples
-#' ## not run
+#' \dontrun{
 #' # Distaces for rings
 #' dist = units::set_units(c(10, 20, 30, 40, 50, 100), m)
 #' # crossing visibility map with rings
@@ -52,7 +53,7 @@
 #'   geom_sf(data = logs)
 #'
 #' dfdwp <- dwp(vr = rings, pt = logs)
-#' @export
+#' }
 viring <- function(x, d){
   #Check projections
   if(is.na(st_crs(x))){

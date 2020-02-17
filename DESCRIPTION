@@ -1,19 +1,27 @@
 Package: genestdwp
 Type: Package
-Title: Density Weighted Points file.
+Title: Density Weighted Proportion (DWP) file
 Version: 0.1.0
 Authors@R: person("Paulo", "Cardoso", role=c("aut", "cre"),
     email = "pcaulo.c@bioinsight.pt")
 Mantainer: Paulo Cardoso
-Description: Automatically obtain dwp file required to run GenEst
+Description: Automatically obtain dwp file required to run GenEst from two mail
+    shapefiles, the vibibility mapping and hte carcasses location. User are asked
+    to identify the distances to be used for ring distances. Any carcass falling
+    in visibility class = 0 will be automatically moved to the nearest visible area.
+    Check this before running DWP.
+URL: Find details [here](https://github.com/PauloEduardoCardoso/genestdwp).
+BugReports: Please fill a bug report or add a comment at [Github]https://github.com/PauloEduardoCardoso/genestdwp/issues).
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.0.2
+Depends: R (>= 3.5.0)
 Imports: 
     sf (>= 0.8-0),
     dplyr (>= 0.8.4),
-    purrr (>= 0.3.3)
+    purrr (>= 0.3.3),
+    magrittr (>= 1.5)
 Suggests: 
     spelling,
     knitr,

@@ -27,7 +27,7 @@ Ensure that d is a vector with distances, single, regularly spaced or not.
  Do not use geographic coordinate system.
 }
 \examples{
-## not run
+\dontrun{
 # Distaces for rings
 dist = units::set_units(c(10, 20, 30, 40, 50, 100), m)
 # crossing visibility map with rings
@@ -44,6 +44,7 @@ ggplot() +
   geom_sf(data = logs)
 
 dfdwp <- dwp(vr = rings, pt = logs)
+}
 }
 \author{
 Paulo E. Cardoso
