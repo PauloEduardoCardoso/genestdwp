@@ -1,4 +1,6 @@
 
+[![Codecov test coverage](https://codecov.io/gh/PauloEduardoCardoso/genestdwp/branch/master/graph/badge.svg)](https://codecov.io/gh/PauloEduardoCardoso/genestdwp?branch=master) [![DOI](https://zenodo.org/badge/237538088.svg)](https://zenodo.org/badge/latestdoi/237538088)
+
 GenestDwp
 =========
 
@@ -38,12 +40,13 @@ Run a basic example with the provided data:
 
 ``` r
 library(genestdwp)
+library(units)
 library(sf)
 library(tidyverse)
 # Vector of distances
-dist = units::set_units(c(10, 20, 30, 40, 50), m)
+dist = set_units(c(10, 20, 30, 40, 50), m)
 # Spatial join among visibility map and rings
-rings <- genestdwp::viring(x=visib, d = dist)
+rings <- viring(x=visib, d = dist)
 # Carcasses
 pto_carcass
 #> Simple feature collection with 54 features and 4 fields

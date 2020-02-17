@@ -10,7 +10,7 @@ Description: Automatically obtain dwp file required to run GenEst from two mail
     to identify the distances to be used for ring distances. Any carcass falling
     in visibility class = 0 will be automatically moved to the nearest visible area.
     Check this before running DWP.
-URL: Find details [here](https://github.com/PauloEduardoCardoso/genestdwp).
+URL: Find details at package [website](https://pauloeduardocardoso.github.io/genestdwp/index.html).
 BugReports: Please fill a bug report or add a comment at [Github]https://github.com/PauloEduardoCardoso/genestdwp/issues).
 License: MIT + file LICENSE
 Encoding: UTF-8
@@ -26,6 +26,8 @@ Suggests:
     spelling,
     knitr,
     rmarkdown,
-    tidyverse
+    tidyverse,
+    covr,
+    testthat (>= 2.1.0)
 Language: en-US
 VignetteBuilder: knitr

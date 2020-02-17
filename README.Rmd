@@ -1,6 +1,8 @@
 ---
 output: github_document
 ---
+[![Codecov test coverage](https://codecov.io/gh/PauloEduardoCardoso/genestdwp/branch/master/graph/badge.svg)](https://codecov.io/gh/PauloEduardoCardoso/genestdwp?branch=master)
+[![DOI](https://zenodo.org/badge/237538088.svg)](https://zenodo.org/badge/latestdoi/237538088)
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
@@ -11,7 +13,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# GenestDwp
+# GenestDwp 
 
 The goal of genestdwp is to obtain the dwp (density weighted proportion) file required to run GenEst. It will require shapefiles for visibility map around each turbine and the carcass locations. Both layers will tipically be obtained from  GIS.
 
@@ -40,12 +42,13 @@ Run a basic example with the provided data:
 
 ```{r example, message=FALSE, warning=FALSE}
 library(genestdwp)
+library(units)
 library(sf)
 library(tidyverse)
 # Vector of distances
-dist = units::set_units(c(10, 20, 30, 40, 50), m)
+dist = set_units(c(10, 20, 30, 40, 50), m)
 # Spatial join among visibility map and rings
-rings <- genestdwp::viring(x=visib, d = dist)
+rings <- viring(x=visib, d = dist)
 # Carcasses
 pto_carcass
 # Get DWP
@@ -58,5 +61,4 @@ ggplot() +
   geom_sf(data = filter(pto_carcass, ag == 1), size = 4) +
   scale_fill_brewer('Dist (m)') +
   theme_void()
-
 ```
