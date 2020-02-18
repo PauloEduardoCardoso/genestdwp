@@ -1,5 +1,5 @@
 
-[![Codecov test coverage](https://codecov.io/gh/PauloEduardoCardoso/genestdwp/branch/master/graph/badge.svg)](https://codecov.io/gh/PauloEduardoCardoso/genestdwp?branch=master) [![DOI](https://zenodo.org/badge/237538088.svg)](https://zenodo.org/badge/latestdoi/237538088)
+[![Build Status](https://travis-ci.org/PauloEduardoCardoso/genestdwp.svg?branch=master)](https://https://travis-ci.org/PauloEduardoCardoso/genestdwp) [![Codecov test coverage](https://codecov.io/gh/PauloEduardoCardoso/genestdwp/branch/master/graph/badge.svg)](https://codecov.io/gh/PauloEduardoCardoso/genestdwp?branch=master) [![DOI](https://zenodo.org/badge/237538088.svg)](https://zenodo.org/badge/latestdoi/237538088)
 
 GenestDwp
 =========
