@@ -25,6 +25,7 @@
 #' @importFrom sf st_intersection
 #' @importFrom sf st_intersects
 #' @importFrom sf st_area
+#' @importFrom sf st_set_agr
 #' @importFrom dplyr group_by
 #' @importFrom dplyr left_join
 #' @importFrom dplyr mutate
@@ -74,9 +75,11 @@ viring <- function(x, d){
   if (any(c('ag', 'visib') %notin% names(x))){
     stop("visibility layer must contain at least the columns [ag] and [visib]!")
   }
+
   xint <- x %>%
     group_by(ag) %>%
     summarise(id = 1) %>%
+    st_set_agr(c(ag = "constant", id = 'constant')) %>%
     st_centroid()
 
   # Rings from visibility centroids
@@ -91,6 +94,9 @@ viring <- function(x, d){
   bint$area <- st_area(bint)
 
   # Visibility area crossed with rings
+  # st_agr: attribute is assumed to be constant over a geometry
+  bint <- st_set_agr(bint, value = "constant")
+  x <- st_set_agr(x, value = "constant")
   bvisib <- bint %>% st_intersection(x)
   bvisib$area <- st_area(bvisib)
 
