@@ -18,7 +18,7 @@ LazyData: true
 RoxygenNote: 7.0.2
 Depends: R (>= 3.5.0)
 Imports: 
-    sf (>= 0.8-0),
+    sf (>= 0.8-1),
     dplyr (>= 0.8.4),
     purrr (>= 0.3.3),
     magrittr (>= 1.5)
