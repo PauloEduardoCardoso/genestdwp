@@ -4,7 +4,7 @@
 GenestDwp
 =========
 
-The goal of genestdwp is to obtain the dwp (density weighted proportion) file required to run GenEst. It will require shapefiles for visibility map around each turbine and the carcass locations. Both layers will tipically be obtained from GIS.
+The goal of genestdwp is to obtain the dwp (density weighted proportion) file required to run GenEst. It will work with the shapefiles for visibility map around each turbine and the carcass locations. Both layers will tipically be obtained from GIS.
 
 Disclaimer
 ----------
@@ -29,7 +29,7 @@ install_github("PauloEduardoCardoso/genestdwp")
 Contribute
 ----------
 
-You are welcome to contribute to the package development and improvment by [filling an issue](https://github.com/PauloEduardoCardoso/genestdwp/issues) at the software webpage.
+You are welcome to contribute to the package development and improvment by [filling an issue](https://github.com/PauloEduardoCardoso/genestdwp/issues) at the package webpage.
 
 Example
 -------
@@ -80,7 +80,7 @@ dfdwp <- dwp(vr = rings, pt = pto_carcass)
 #> 6    30 0    
 #> 7    20 0    
 #> 8    31 0    
-#> [1] "Found n = 8 carcasses on visibility = 0! Assuming value of nearest visible area"
+#> [1] "Found n = 8 Found carcasses on visibility class = 0. Assuming value of nearest visible area"
 dfdwp
 #> # A tibble: 37 x 2
 #>       ag   dwp

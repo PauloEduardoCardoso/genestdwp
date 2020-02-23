@@ -4,5 +4,6 @@ utils::globalVariables(c("ag", "dist", "visib",
                          "varea", "tarea",
                          "pr", 'mi', 's', 'pmi',
                          'area.y', 'area.x',
-                         "area", "agdwp", '%>%', '.'
+                         "area", "agdwp", '%>%', '.',
+                         "no"
                          ))

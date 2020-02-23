@@ -30,6 +30,7 @@
 #' @importFrom dplyr filter
 #' @importFrom dplyr select
 #' @importFrom dplyr tally
+#' @importFrom dplyr n
 #' @importFrom dplyr ungroup
 #' @importFrom purrr map
 #' @export
@@ -62,7 +63,7 @@ dwp <- function(vr, pt){
 
   #Check projections
   if(any(is.na(st_crs(vr)),is.na(st_crs(pt)))){
-    stop('No crs found for one or both layers')
+    stop('Both layers must have their crs defined')
   }
 
   if(st_crs(vr) != st_crs(pt)){
@@ -81,6 +82,8 @@ dwp <- function(vr, pt){
   }
 
   # Step 1.1 Carcass at each ring dist ####
+  vr$dist <- as.numeric(vr$dist)
+  vr$area <- as.numeric(vr$area)
   cr <- pt[ ,-1] %>%
     st_join(select(vr, ag, dist, visib), join = st_intersects) %>%
     filter(!is.na(visib))
@@ -90,19 +93,19 @@ dwp <- function(vr, pt){
     print(st_drop_geometry(filter(select(cr, ag, visib), visib == 0)))
     print(paste('Found n =',
                   nrow(filter(cr, visib == 0)),
-                  'carcasses on visibility = 0! Assuming value of nearest visible area'))
+                  'Found carcasses on visibility class = 0. Assuming value of nearest visible area'))
     cr <- cr %>%
-      st_join(filter(rings, visib != 0), join = st_nearest_feature)
+      st_join(filter(vr, visib != 0), join = st_nearest_feature)
     cr <- select(cr, tamanho, ag = ag.x, dist = dist.y, visib = visib.y)
   }
   cr <- cr %>%
     st_drop_geometry() %>%
     group_by(dist) %>%
-    tally(n())
+    tally()
   # Obtaining pmi
   int <- vr %>%
     st_drop_geometry() %>%
-    filter(as.numeric(dist) <= 50) %>%
+    filter(dist <= 50) %>%
     group_by(dist) %>%
     summarise(tarea = sum(area)) %>%
     ungroup() %>%
@@ -115,30 +118,29 @@ dwp <- function(vr, pt){
               by = c('dist' = 'dist')) %>%
     ungroup() %>%
     left_join(cr, by = c('dist' = 'dist')) %>%
-    mutate(n = ifelse(is.na(n),0,n),
+    mutate(no = ifelse(is.na(n), 0 , n),
            pr = varea / tarea,
-           mi = n/pr,
+           mi = no/pr,
            s = sum(mi, na.rm = T),
            pmi = mi/s)
   # pmi df
-  pmi <- select(int, c('dist', 'pmi'))
-
+  pmi <- select(int, c(dist, pmi))
   # dwp
   dwp <- vr %>%
     st_drop_geometry() %>%
-    group_by(ag, dist) %>%
+    group_by(ag, dist = dist) %>%
     summarise(area = sum(area)) %>%
     left_join(
-      rings %>%
+      vr %>%
         st_drop_geometry() %>%
         filter(visib > 0)  %>%
-        group_by(ag, dist) %>%
-        summarise(area = sum(area)),
+        group_by(ag, dist = dist) %>%
+        summarise(area = sum(as.numeric(area))),
       by = c('ag' = 'ag', 'dist' = 'dist')
-    ) %>%
+    ) %>% ungroup() %>%
     left_join(pmi, by = c('dist' = 'dist')) %>%
     mutate(agdwp =  (area.y/area.x) * pmi) %>%
-    ungroup() %>% group_by(ag) %>%
+    group_by(ag) %>%
     summarise(dwp = sum(agdwp))
 
   return(dwp)
