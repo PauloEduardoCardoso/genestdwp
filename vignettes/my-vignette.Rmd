@@ -19,9 +19,9 @@ The density-weighted proportion (DWP) is the expected fraction of carcasses that
 Run a basic example with the provided data:
 
 ```{r, message=FALSE, warning=FALSE}
+library(genestdwp)
 library(tidyverse)
 library(sf)
-library(genestdwp)
 # Vector of distances
 dist = c(10, 20, 30, 40, 50) # assumming distance in meters
 # Spatial join among visibility map and rings
