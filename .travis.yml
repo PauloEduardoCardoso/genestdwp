@@ -3,10 +3,6 @@
 language: R
 cache: packages
 latex: false
-addons:
-  apt:
-    packages:
-      - libudunits2-dev
 sudo: required
 dist: trusty
 
@@ -18,7 +14,7 @@ before_install:
   - sudo add-apt-repository ppa:ubuntugis/ppa --yes
   - sudo apt-get --yes --force-yes update -qq
   - sudo apt-get install --yes libudunits2-dev libproj-dev libgeos-dev libgdal-dev
-
+  - - R -q -e 'install.packages("remotes"); remotes::install_github("r-spatial/sf")
 # Binary versions of packages to reduce build time.
 r_binary_packages:
   - dplyr
