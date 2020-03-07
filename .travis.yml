@@ -4,7 +4,7 @@ language: r
 cache: packages
 latex: false
 sudo: true
-dist: trusty
+dist: xenial
 
 addons:
   apt:
