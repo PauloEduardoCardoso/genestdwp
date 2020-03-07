@@ -17,6 +17,7 @@
 #'
 #' @author Paulo E. Cardoso
 #'
+#' @importFrom sf st_nearest_feature
 #' @importFrom sf st_centroid
 #' @importFrom sf st_crs
 #' @importFrom sf st_buffer
