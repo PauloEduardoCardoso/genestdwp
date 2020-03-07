@@ -22,11 +22,6 @@ before_install:
   - sudo apt-get install --yes libudunits2-dev libproj-dev libgeos-dev libgdal-dev
 
 # Binary versions of packages to reduce build time.
-r_binary_packages:
-  - dplyr
-  - ggplot2
-  - purrr
-  - rgeos
 
 r_build_args: --no-build-vignettes --no-manual
 r_check_args: --no-build-vignettes --no-manual --timings
