@@ -1,13 +1,14 @@
 ---
 title: "Genestdwp - a tutorial to build the DWP file"
-output: rmarkdown::html_vignette
-vignette: >
+output:
+  rmarkdown::html_vignette
+vignette: > 
   %\VignetteIndexEntry{my-vignette}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
+```{r, include = FALSE, eval = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
@@ -18,7 +19,7 @@ The density-weighted proportion (DWP) is the expected fraction of carcasses that
 
 Run a basic example with the provided data:
 
-```{r, message=FALSE, warning=FALSE}
+```{r, message=FALSE, warning=FALSE, , eval = FALSE}
 library(genestdwp)
 library(tidyverse)
 library(sf)
