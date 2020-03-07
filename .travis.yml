@@ -3,7 +3,7 @@
 language: R
 cache: packages
 latex: false
-sudo: required
+sudo: true
 dist: trusty
 
 r:
@@ -11,11 +11,13 @@ r:
 
 # Add GDAL, GEOS, proj, and units2 dependencies
 
-#before_install:
-#  - sudo add-apt-repository ppa:ubuntugis/ppa --yes
-#  - sudo apt-get --yes --force-yes update -qq
-#  - sudo apt-get install --yes libudunits2-dev #libproj-dev libgeos-dev libgdal-dev
+before_install:
+  - sudo add-apt-repository ppa:ubuntugis/ppa --yes
+  - sudo apt-get --yes --force-yes update -qq
+  - sudo apt-get install --yes libproj-dev libgeos-dev libgdal-dev
 
+apt_packages:
+  - libudunits2-dev
 # Binary versions of packages to reduce build time.
 r_binary_packages:
   - dplyr
