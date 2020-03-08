@@ -83,6 +83,26 @@
     
     
 <p>The density-weighted proportion (DWP) is the expected fraction of carcasses that fell in the searched area. Carcass density is not the same at all distances from a turbine, but typically rises over a short distance then decreases eventually to zero <a href="https://cran.r-project.org/web/packages/GenEst/vignettes/wind-examples.html">GenEst</a>.</p>
+<p>Run a basic example with the provided data:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(genestdwp)
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(tidyverse)
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(sf)
+<span class="co"># Vector of distances</span>
+dist =<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">40</span>, <span class="dv">50</span>) <span class="co"># assumming distance in meters</span>
+<span class="co"># Spatial join among visibility map and rings</span>
+rings &lt;-<span class="st"> </span><span class="kw"><a href="../reference/viring.html">viring</a></span>(<span class="dt">x=</span>visib, <span class="dt">d =</span> dist)
+<span class="co"># Carcasses</span>
+pto_carcass
+<span class="co"># Get DWP</span>
+df &lt;-<span class="st"> </span><span class="kw"><a href="../reference/dwp.html">dwp</a></span>(<span class="dt">vr =</span> rings, <span class="dt">pt =</span> pto_carcass)
+df
+<span class="co"># Plot some data together</span>
+<span class="kw">ggplot</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_sf</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> <span class="kw"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(dist)), <span class="dt">colour =</span> <span class="st">'grey80'</span>,
+          <span class="dt">size =</span> .<span class="dv">1</span>, <span class="dt">data =</span> <span class="kw"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(rings, ag <span class="op">==</span><span class="st"> </span><span class="dv">1</span>)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">data =</span> <span class="kw"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(pto_carcass, ag <span class="op">==</span><span class="st"> </span><span class="dv">1</span>), <span class="dt">size =</span> <span class="dv">4</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_fill_brewer</span>(<span class="st">'Distance (m)'</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_void</span>()</code></pre></div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
