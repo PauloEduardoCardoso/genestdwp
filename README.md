@@ -1,35 +1,49 @@
-genestdwp [![Travis-CI Build Status](https://travis-ci.org/PauloEduardoCardoso/genestdwp.svg?branch=master)](https://https://travis-ci.org/PauloEduardoCardoso/genestdwp)[![Codecov](https://codecov.io/gh/PauloEduardoCardoso/genestdwp/branch/master/graph/badge.svg)](https://codecov.io/gh/PauloEduardoCardoso/genestdwp?branch=master)[![DOI](https://zenodo.org/badge/237538088.svg)](https://zenodo.org/badge/latestdoi/237538088)
+genestdwp [![Travis-CI Build
+Status](https://travis-ci.org/PauloEduardoCardoso/genestdwp.svg?branch=master)](https://https://travis-ci.org/PauloEduardoCardoso/genestdwp)[![Codecov](https://codecov.io/gh/PauloEduardoCardoso/genestdwp/branch/master/graph/badge.svg)](https://codecov.io/gh/PauloEduardoCardoso/genestdwp?branch=master)[![DOI](https://zenodo.org/badge/237538088.svg)](https://zenodo.org/badge/latestdoi/237538088)
 ================
 
-> GenestDwp helps to obtain the dwp (density weighted proportion) file required to run GenEst. It will work with the shapefiles for visibility map around each turbine and the carcass locations. Both layers will tipically be obtained from GIS.
+> GenestDwp helps to obtain the dwp (density weighted proportion) file
+> required to run GenEst. It will work with the shapefiles for
+> visibility map around each turbine and the carcass locations. Both
+> layers will tipically be obtained from GIS. Visit the [package
+> website](https://pecard.github.io/genestdwp/index.html)
 
-Disclaimer
-----------
+## Disclaimer
 
-This software is preliminary or provisional. No warranty, expressed or implied, is made by the mantainer. Software releases constitute no warranty. The software is provided as is on the condition that the mantainer shall not be held liable or responsible for any damages resulting from the authorized or unauthorized use of the software.
+This software is preliminary or provisional. No warranty, expressed or
+implied, is made by the mantainer. Software releases constitute no
+warranty. The software is provided as is on the condition that the
+mantainer shall not be held liable or responsible for any damages
+resulting from the authorized or unauthorized use of the software.
 
-What is GenEst?
----------------
+## What is GenEst?
 
-GenEst is a generalized, unbiased, fatality estimator developed by [USGS](https://www.usgs.gov/software/genest-a-generalized-estimator-mortality). Additional information and details available from the [software User Guide](https://doi.org/10.3133/tm7C19), the [package repository](https://doi.org/10.5066/P9O9BATL), and the [technical report](https://doi.org/10.3133/tm7A2). The material from a USGS "Into to GenEst" workshop is also available [here](https://www.usgs.gov/media/files/intro-genest-workshop-nwcc-26nov2018).
+GenEst is a generalized, unbiased, fatality estimator developed by
+[USGS](https://www.usgs.gov/software/genest-a-generalized-estimator-mortality).
+Additional information and details available from the [software User
+Guide](https://doi.org/10.3133/tm7C19), the [package
+repository](https://doi.org/10.5066/P9O9BATL), and the [technical
+report](https://doi.org/10.3133/tm7A2). The material from a USGS “Into
+to GenEst” workshop is also available
+[here](https://www.usgs.gov/media/files/intro-genest-workshop-nwcc-26nov2018).
 
-Installation
-------------
+## Installation
 
-You can install the released version of genestdwp from [Github](https:://github.com/PauloEduardoCardoso/genestdwp) with:
+You can install the released version of genestdwp from
+[Github](https:://github.com/pecard/genestdwp) with:
 
 ``` r
 library(devtools)
-install_github("PauloEduardoCardoso/genestdwp")
+install_github("pecard/genestdwp")
 ```
 
-Contribute
-----------
+## Contribute
 
-You are welcome to contribute to the package development and improvment by [filling an issue](https://github.com/PauloEduardoCardoso/genestdwp/issues) at the package webpage.
+You are welcome to contribute to the package development and improvment
+by [filling an issue](https://github.com/pecard/genestdwp/issues) at the
+package webpage.
 
-Example
--------
+## Usage
 
 Run a basic example with the provided data:
 
@@ -77,7 +91,7 @@ dfdwp <- dwp(vr = rings, pt = pto_carcass)
 #> 6    30 0    
 #> 7    20 0    
 #> 8    31 0    
-#> [1] "Found n = 8 Found carcasses on visibility class = 0. Assuming value of nearest visible area"
+#> [1] "Found n = 8 carcasses on visibility = 0! Assuming value of nearest visible area"
 dfdwp
 #> # A tibble: 37 x 2
 #>       ag   dwp
